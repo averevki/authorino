@@ -4732,7 +4732,7 @@ spec:
                   x-kubernetes-validations:
                   - message: 'Use exactly one of: http, userInfo, uma'
                     rule: 'has(self.http) ? !(has(self.userInfo) || has(self.uma))
-                      : has(self.userInfo) != has(self.uma)'
+                      : has(self.userInfo) == has(self.uma)'
                 description: |-
                   Metadata sources.
                   Authorino fetches auth metadata as JSON from sources specified in this config.

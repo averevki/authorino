@@ -498,7 +498,7 @@ type PlainIdentitySpec struct {
 
 type AnonymousAccessSpec struct{}
 
-// +kubebuilder:validation:XValidation:rule="has(self.http) ? !(has(self.userInfo) || has(self.uma)) : has(self.userInfo) != has(self.uma)",message="Use exactly one of: http, userInfo, uma"
+// +kubebuilder:validation:XValidation:rule="has(self.http) ? !(has(self.userInfo) || has(self.uma)) : has(self.userInfo) == has(self.uma)",message="Use exactly one of: http, userInfo, uma"
 type MetadataSpec struct {
 	CommonEvaluatorSpec `json:""`
 	MetadataMethodSpec  `json:""`
