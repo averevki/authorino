@@ -1,0 +1,26 @@
+name: Sync operator manifests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'install/manifests.yaml'
+      - 'install/crd/**'
+  workflow_dispatch: {}
+
+jobs:
+  notify-operator:
+    name: Notify authorino-operator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository dispatch
+        env:
+          PAT: ${{ secrets.KUADRANT_DEV_PAT }}
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $PAT" \
+            https://api.github.com/repos/averevki/authorino-operator/dispatches \
+            -d '{"event_type":"authorino-manifests-sync"}'
